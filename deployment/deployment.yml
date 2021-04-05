@@ -3,14 +3,16 @@ kind: Deployment
 metadata:
   name: simple-server
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: simple-server
+      track: stable
   template:
     metadata:
       labels:
         app: simple-server
+        track: stable
     spec:
       containers:
       - name: simple-server
