@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-server-canary
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: simple-server
+  template:
+    metadata:
+      labels:
+        app: simple-server
+        track: canary
+    spec:
+      containers:
+      - name: simple-server
+        image: docker.io/library/simple-python-service:latest
+        imagePullPolicy: Never
+        env:
+          - name: SERVICE_RESPONSE
+            value: "Version 2"
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            cpu: "250m"
+            memory: "64Mi"
